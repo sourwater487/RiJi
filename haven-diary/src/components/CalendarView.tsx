@@ -35,7 +35,7 @@ export default function CalendarView({ diaries, onDateClick }: CalendarViewProps
 
   const days = [];
   for (let i = 0; i < firstDayOfMonth; i++) {
-    days.push(<div key={`empty-${i}`} className="aspect-square min-h-10 md:h-20" />);
+    days.push(<div key={`empty-${i}`} className="h-12 sm:h-16 md:h-20" />);
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
@@ -47,7 +47,7 @@ export default function CalendarView({ diaries, onDateClick }: CalendarViewProps
       <button
         key={i}
         onClick={() => diaryExists && onDateClick(dateStr)}
-        className={`aspect-square min-h-10 border border-border-subtle flex flex-col items-center justify-center relative transition-all md:h-20 ${
+        className={`h-12 w-full border border-border-subtle flex flex-col items-center justify-center relative transition-all sm:h-16 md:h-20 ${
           diaryExists ? 'hover:bg-accent/10 cursor-pointer' : 'cursor-default text-text-secondary/45'
         } ${isToday ? 'bg-sidebar-hover' : ''}`}
       >
