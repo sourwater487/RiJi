@@ -114,6 +114,8 @@ def search_diaries(search: DiarySearch):
         emotion_tag=search.emotion_tag,
         limit=search.limit
     )
+    for diary in diaries:
+        diary['comments'] = db.get_comments(diary['id'])
     return {"count": len(diaries), "diaries": diaries}
 
 @app.put("/diaries/{diary_id}")
@@ -151,6 +153,19 @@ def get_comments(diary_id: int):
     """获取日记的所有评论"""
     comments = db.get_comments(diary_id)
     return {"count": len(comments), "comments": comments}
+
+@app.delete("/diaries/{diary_id}/comments/{comment_id}")
+def delete_comment(diary_id: int, comment_id: int):
+    """删除一条评论"""
+    diary = db.get_diary_by_id(diary_id)
+    if not diary:
+        raise HTTPException(status_code=404, detail="未找到该日记")
+
+    success = db.delete_comment(diary_id, comment_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="未找到该评论")
+
+    return {"message": "评论删除成功"}
 
 if __name__ == "__main__":
     import uvicorn

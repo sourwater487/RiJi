@@ -233,6 +233,22 @@ class DiaryDatabase:
 
         return [dict(row) for row in rows]
 
+    def delete_comment(self, diary_id: int, comment_id: int) -> bool:
+        """删除指定日记下的一条评论"""
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "DELETE FROM comments WHERE id = ? AND diary_id = ?",
+            (comment_id, diary_id)
+        )
+
+        success = cursor.rowcount > 0
+        conn.commit()
+        conn.close()
+
+        return success
+
     def _row_to_dict(self, row) -> Dict[str, Any]:
         """将数据库行转换为字典"""
         data = dict(row)

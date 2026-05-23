@@ -153,6 +153,24 @@ export default function App() {
     }
   };
 
+  const handleDeleteComment = async (diaryId: number, commentId: number) => {
+    try {
+      await diaryAPI.deleteComment(diaryId, commentId);
+      const updatedDiary = await diaryAPI.getDiaryById(diaryId);
+
+      setDiaries(prev => prev.map(d => d.id === diaryId ? updatedDiary : d));
+
+      if (selectedDiary && selectedDiary.id === diaryId) {
+        setSelectedDiary(updatedDiary);
+      }
+
+      showToast('评论已删除', 'success');
+    } catch (error) {
+      console.error('删除评论失败:', error);
+      showToast('删除评论失败，请重试', 'error');
+    }
+  };
+
   const handleDateClick = async (date: string) => {
     try {
       const diary = await diaryAPI.getDiaryByDate(date);
@@ -368,6 +386,7 @@ export default function App() {
             diary={selectedDiary} 
             onClose={() => setSelectedDiary(null)} 
             onAddComment={handleAddComment}
+            onDeleteComment={handleDeleteComment}
             onDelete={handleDeleteDiary}
             onUpdate={handleUpdateDiary}
             onNotify={showToast}
@@ -475,11 +494,12 @@ const DiaryDetail: React.FC<{
   diary: Diary,
   onClose: () => void,
   onAddComment: (id: number, content: string) => void,
+  onDeleteComment: (diaryId: number, commentId: number) => void | Promise<void>,
   onDelete: (id: number) => void,
   onUpdate: (diary: Diary) => void,
   onNotify: (message: string, tone?: ToastTone) => void,
   onConfirm: (state: ConfirmState | null) => void
-}> = ({ diary, onClose, onAddComment, onDelete, onUpdate, onNotify, onConfirm }) => {
+}> = ({ diary, onClose, onAddComment, onDeleteComment, onDelete, onUpdate, onNotify, onConfirm }) => {
   const [comment, setComment] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(diary.title || '');
@@ -510,6 +530,17 @@ const DiaryDetail: React.FC<{
           onNotify('删除失败，请重试', 'error');
         }
       },
+    });
+  };
+
+  const handleDeleteComment = (commentId: number) => {
+    onConfirm({
+      title: '删掉这条评论吗？',
+      message: '删掉后这条评论就不会再显示了。',
+      confirmLabel: '删除评论',
+      cancelLabel: '先留着',
+      confirmVariant: 'danger',
+      onConfirm: () => onDeleteComment(diary.id, commentId),
     });
   };
 
@@ -649,14 +680,24 @@ const DiaryDetail: React.FC<{
             
             <div className="space-y-8 mb-12">
               {diary.comments?.map(comment => (
-                <div key={comment.id} className="border-b border-border-subtle pb-6 last:border-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`text-xs font-bold uppercase tracking-widest ${comment.author === 'ai' ? 'text-accent' : 'text-text-secondary'}`}>
-                      {comment.author === 'ai' ? 'Haven' : '小雨'}
-                    </span>
-                    <span className="text-[10px] uppercase tracking-widest text-text-secondary font-bold">
-                      {new Date(comment.created_at).toLocaleString()}
-                    </span>
+                <div key={comment.id} className="group border-b border-border-subtle pb-6 last:border-0">
+                  <div className="mb-2 flex items-start justify-between gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`text-xs font-bold uppercase tracking-widest ${comment.author === 'ai' ? 'text-accent' : 'text-text-secondary'}`}>
+                        {comment.author === 'ai' ? 'Haven' : '小雨'}
+                      </span>
+                      <span className="text-[10px] uppercase tracking-widest text-text-secondary font-bold">
+                        {new Date(comment.created_at).toLocaleString()}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => handleDeleteComment(comment.id)}
+                      className="shrink-0 rounded-full p-1.5 text-text-secondary opacity-70 transition-colors hover:bg-red-50 hover:text-red-600 group-hover:opacity-100"
+                      title="删除评论"
+                      aria-label="删除评论"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
                   <p className="text-sm text-text-primary leading-relaxed break-words">{comment.content}</p>
                 </div>

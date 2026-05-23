@@ -210,6 +210,24 @@ class DiaryAPI {
   }
 
   /**
+   * 删除评论
+   */
+  async deleteComment(diaryId: number, commentId: number): Promise<void> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/diaries/${diaryId}/comments/${commentId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('删除评论失败:', error);
+      throw error;
+    }
+  }
+
+  /**
    * 获取日记的所有评论
    */
   async getComments(diaryId: number): Promise<Comment[]> {
