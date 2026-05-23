@@ -46,7 +46,7 @@ export default function CalendarView({ diaries, onDateClick }: CalendarViewProps
     const isToday = new Date().toDateString() === new Date(currentDate.getFullYear(), currentDate.getMonth(), i).toDateString();
     const diaryExists = hasDiary(i);
     const dateStr = `${monthPrefix}-${String(i).padStart(2, '0')}`;
-    const isSelected = selectedDate === dateStr;
+    const isSelected = selectedDate === dateStr || (!selectedDate && isToday);
 
     days.push(
       <button
