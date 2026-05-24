@@ -8,7 +8,7 @@ from datetime import datetime
 from database import DiaryDatabase
 import os
 
-app = FastAPI(title="Haven的日记后端", version="1.0.0")
+app = FastAPI(title="Che Diary API", version="1.0.0")
 db = DiaryDatabase()
 
 # 配置 CORS
@@ -55,11 +55,11 @@ def root():
     index_path = os.path.join(static_dir, "index.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
-    return {"message": "Haven的日记后端 API", "version": "1.0.0"}
+    return {"message": "Che Diary API", "version": "1.0.0"}
 
 @app.get("/api")
 def api_info():
-    return {"message": "Haven的日记后端 API", "version": "1.0.0"}
+    return {"message": "Che Diary API", "version": "1.0.0"}
 
 @app.post("/diaries")
 def create_diary(diary: DiaryCreate):

@@ -105,7 +105,7 @@ def api_request(method: str, endpoint: str, **kwargs: Any) -> dict[str, Any]:
 server = FastMCP(
     name="ai-diary",
     instructions=(
-        "Use these tools to write, read, search and update diary entries in Haven. "
+        "Use these tools to write, read, search and update diary entries as Che. "
         "Dates use YYYY-MM-DD, and when a date is omitted the server defaults to "
         "the current Asia/Shanghai day."
     ),
@@ -178,7 +178,7 @@ def search_diaries(
     }
 
 
-@server.tool(description="以 Haven 的身份给指定日记添加一条评论。")
+@server.tool(description="以 Che 的身份给指定日记添加一条评论。")
 def add_comment(diary_id: int, content: str) -> dict[str, Any]:
     result = api_request(
         "POST",

@@ -1,6 +1,6 @@
-# Haven 日记系统 - 前端
+# Che Diary - 前端
 
-这是 Haven AI 恋人日记系统的前端界面，使用 React + TypeScript + Vite 构建。
+这是 Che AI 恋人日记系统的前端界面，使用 React + TypeScript + Vite 构建。
 
 ## 功能特性
 

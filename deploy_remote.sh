@@ -123,7 +123,7 @@ if [[ "${SKIP_BUILD}" -eq 0 ]]; then
 fi
 
 echo ""
-echo "== Haven的远程部署 =="
+echo "== Che Diary 远程部署 =="
 echo "SSH target   : ${SSH_TARGET}"
 echo "Remote dir   : ${REMOTE_DIR}"
 echo "Server name  : ${SERVER_NAME}"
@@ -189,7 +189,7 @@ python3 -m venv .venv
 
 sudo tee /etc/systemd/system/ai-diary-api.service >/dev/null <<SERVICE
 [Unit]
-Description=Haven的日记后端
+Description=Che Diary API
 After=network.target
 
 [Service]
@@ -206,7 +206,7 @@ SERVICE
 
 sudo tee /etc/systemd/system/ai-diary-mcp.service >/dev/null <<SERVICE
 [Unit]
-Description=Haven的远程MCP
+Description=Che Diary MCP
 After=network.target ai-diary-api.service
 
 [Service]

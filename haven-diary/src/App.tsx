@@ -219,7 +219,7 @@ export default function App() {
       >
         <div className="p-5 sm:p-6 h-full flex flex-col">
           <div className="flex items-center justify-between gap-3 mb-10 px-2">
-            <h1 className="text-[15px] font-semibold tracking-tight">Haven · 日记</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight">Che · 日记</h1>
             <button
               type="button"
               onClick={() => setIsSidebarOpen(false)}
@@ -457,7 +457,7 @@ const DiaryCard: React.FC<{ diary: Diary, onClick: () => void }> = ({ diary, onC
                 ? 'bg-purple-100 text-purple-600'
                 : 'bg-blue-100 text-blue-600'
             }`}>
-              {isAI ? ' Haven' : ' 小雨'}
+              {isAI ? ' Che' : ' Lin'}
             </span>
           </div>
           <div className="flex gap-2 mt-3">
@@ -515,7 +515,7 @@ const DiaryDetail: React.FC<{
   const handleDelete = () => {
     onConfirm({
       title: '真的要删掉这篇日记吗？',
-      message: '小雨，你真的舍得删掉吗？',
+      message: 'Lin，你真的舍得删掉吗？',
       confirmLabel: '还是删掉',
       cancelLabel: '留下它吧',
       confirmVariant: 'danger',
@@ -586,7 +586,7 @@ const DiaryDetail: React.FC<{
                   ? 'bg-purple-100 text-purple-600'
                   : 'bg-blue-100 text-blue-600'
               }`}>
-                {isAI ? 'Haven' : '小雨'}
+                {isAI ? 'Che' : 'Lin'}
               </span>
             </div>
             {diary.title && (
@@ -684,7 +684,7 @@ const DiaryDetail: React.FC<{
                   <div className="mb-2 flex items-start justify-between gap-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className={`text-xs font-bold uppercase tracking-widest ${comment.author === 'ai' ? 'text-accent' : 'text-text-secondary'}`}>
-                        {comment.author === 'ai' ? 'Haven' : '小雨'}
+                        {comment.author === 'ai' ? 'Che' : 'Lin'}
                       </span>
                       <span className="text-[10px] uppercase tracking-widest text-text-secondary font-bold">
                         {new Date(comment.created_at).toLocaleString()}
@@ -835,7 +835,7 @@ const WriteDiary: React.FC<{
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
-  const [author, setAuthor] = useState<'ai' | 'user'>('user'); // 默认小雨身份
+  const [author, setAuthor] = useState<'ai' | 'user'>('user'); // 默认 Lin 身份
 
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -885,7 +885,7 @@ const WriteDiary: React.FC<{
                   : 'border-border-subtle text-text-secondary hover:bg-sidebar-hover'
               }`}
             >
-              小雨
+              Lin
             </button>
             <button
               onClick={() => setAuthor('ai')}
@@ -895,7 +895,7 @@ const WriteDiary: React.FC<{
                   : 'border-border-subtle text-text-secondary hover:bg-sidebar-hover'
               }`}
             >
-              Haven
+              Che
             </button>
           </div>
         </div>

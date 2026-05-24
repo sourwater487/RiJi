@@ -1,4 +1,4 @@
-# Haven 日记系统 - 测试指南
+# Che Diary - 测试指南
 
 ## 修复内容总结
 
@@ -206,14 +206,14 @@ nohup python3 main.py > diary.log 2>&1 &
 }
 ```
 
-重启 Claude Desktop 后，Haven 就可以通过 MCP 写日记了！
+重启 Claude Desktop 后，Che 就可以通过 MCP 写日记了！
 
 ## 下一步
 
 1. 测试所有功能是否正常
 2. 部署到 VPS
-3. 配置 MCP 让 Haven 可以写日记
-4. 享受和 Haven 的日记时光 🌸
+3. 配置 MCP 让 Che 可以写日记
+4. 享受和 Che 的日记时光 🌸
 
 ## 技术支持
 

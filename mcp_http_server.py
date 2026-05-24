@@ -183,7 +183,7 @@ async def root(_: Request) -> JSONResponse:
     auth_mode = "oauth" if CHATGPT_OAUTH.enabled else ("bearer" if MCP_BEARER_TOKEN else "none")
     return JSONResponse(
         {
-            "name": "Haven的远程MCP",
+            "name": "Che Diary MCP",
             "version": "2.0.0",
             "transport": {
                 "httpStream": "/mcp",
@@ -201,7 +201,7 @@ async def root(_: Request) -> JSONResponse:
 
 
 async def health(_: Request) -> JSONResponse:
-    return JSONResponse({"status": "ok", "service": "Haven的远程MCP"})
+    return JSONResponse({"status": "ok", "service": "Che Diary MCP"})
 
 
 def _public_base_url(request: Request) -> str:
